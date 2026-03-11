@@ -4,5 +4,4 @@ numpy
 scikit-learn
 sentence-transformers
 rapidfuzz
-google-generativeai
 gdown

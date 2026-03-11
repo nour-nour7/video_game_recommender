@@ -7,24 +7,10 @@ from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 from rapidfuzz import process, fuzz
 import pickle
-import google.generativeai as genai
 
-genai.configure(api_key="AIzaSyBmDCcPFWahnd4Hu0Uc41SnsNDHn8fGRVQ")
-model_llm = genai.GenerativeModel("gemini-2.0-flash-lite")
 
-@st.cache_data
-def explain_recommendation(searched_game, recommended_game, genres, tags):
-    prompt = f"""
-    A user liked "{searched_game}" and we recommended "{recommended_game}".
-    Genres: {genres}
-    Tags: {tags}
-    In ONE sentence, explain why a fan of "{searched_game}" would enjoy "{recommended_game}". Max 30 words.
-    """
-    try:
-        response = model_llm.generate_content(prompt)
-        return response.text
-    except Exception as e:
-        return "Explanation unavailable right now (API limit reached)"
+
+
 
 
 GAMES_ID = "1xfIVgqLDi3qaB1Yn0_VqdixbaSu4E-MZ"
@@ -127,11 +113,3 @@ if st.session_state.show_recs and st.session_state.selected_game:
             st.caption(f"{', '.join(row['genres'])}")
             with st.expander("Description"):
                 st.write(row['short_description'])
-            with st.expander("Why this game?"):
-                explanation = explain_recommendation(
-                    selected_game,
-                    row['name'],
-                    row['genres'],
-                    row['tags_text']
-                )
-                st.write(explanation)
