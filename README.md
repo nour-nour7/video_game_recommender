@@ -1,6 +1,8 @@
 # video_game_recommender
-Recommendation system for video games
+Recommendation system for video games using steam datasets
 
+Similarity score using cosine similarity, Embeddings using sentence transformers. 
+Eventually, will implement expandable section to get more information/explanation for the recommendations using an LLM. 
 App link: https://videogamerecommender.streamlit.app/
 
 
